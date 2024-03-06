@@ -23,10 +23,14 @@ _________
 
 ### Model
 
-* Designate "Whether homeless more than 1 year this time" as the target variable
-* Designate following features based on exploratory analysis and external research on youth homelessness 
-* Utilize classification models such as Logistic and Random Forest 
-* Compare different metrics such as ROC and test score to compare models' performances
+| Model               | Balanced Accuracy | Recall  | Precision | F1 Score |Model          | Balanced Accuracy | Recall  | Precision | F1 Score |
+|---------------------|-------------------|---------|-----------|----------|---------------|-------------------|---------|-----------|----------|
+| Logistic Regression |                   |         |           |          |KNN            |                   |         |           |          |
+| logr                | 0.504139          | 0.011236| 0.666667  | 0.022099 |knn            | 0.522754          | 0.089888| 0.516129  | 0.153110 |
+| RandomOverSampler   | 0.533592          | 0.460674| 0.381395  | 0.417303 |RandomOverSampler   | 0.562180          | 0.331461| 0.457364  | 0.384365 |
+| SMOTE               | 0.532262          | 0.455056| 0.380282  | 0.414322 |SMOTEN              | 0.544728          | 0.320225| 0.422222  | 0.364217 |
+| ADASYN              | 0.526644          | 0.443820| 0.374408  | 0.406170 |ADASYN              | 0.549315          | 0.314607| 0.434109  | 0.364821 |
+| WeightedLogr        | 0.545409          | 0.516854| 0.389831  | 0.444444 |Weightedknn         | 0.539010          | 0.146067| 0.530612  | 0.229075 |
 
 ### Streamlit app
 
