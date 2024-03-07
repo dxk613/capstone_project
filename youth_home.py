@@ -4,9 +4,14 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
+#from sklearn.model_selection import train_test_split, GridSearchCV
+#from imblearn.pipeline import make_pipeline
+#from imblearn.over_sampling import RandomOverSampler
+#from sklearn.svm import SVC
+
 
 st.write("""
-# Youth Homeless in LA Prediction App
+# Homeless Youth in LA Prediction App
 
 This app predicts whether a young individual will become homeless more than 1 year.
 
@@ -29,8 +34,8 @@ if uploaded_file is not None:
     input_df = pd.read_csv(uploaded_file)
 else:
     def user_input_features():
-        neglect = st.sidebar.selectbox('Neglect',('Yes','No','Not Sure','Refuse to Answer'))
-        physical_abuse = st.sidebar.selectbox('Physical Abuse',('Yes','No', 'Not Sure', 'Refuse to Answer'))
+        neglect = st.sidebar.slider('Neglect', 0, 1, 6)
+        physical_abuse = st.sidebar.slider('Physical Abuse', 0, 1, 6)
         dv_physical_rel = st.sidebar.slider('Physical Abuse By Parent', 0, 1, 6)
         dv_sexual_rel = st.sidebar.slider('Sexual Abuse By Parent', 0, 1, 6)
         subsabuse = st.sidebar.slider('Whether Did Substance Abuse', 0, 1, 6)
@@ -47,7 +52,7 @@ else:
         return features
     input_df = user_input_features()
     
-# Combines user input features with entire penguins dataset
+# Combines user input features with entire youth_model dataset
 # This will be useful for the encoding phase
 youth_homeless = pd.read_csv('datasets/youth_model.csv')
 youth = youth_homeless.drop(columns=['hmlsmorethan1Yr'])
@@ -61,4 +66,19 @@ if uploaded_file is not None:
 else:
     st.write('Awaiting CSV file to be uploaded. Currently using example input parameters (shown below).')
     st.write(df)
-        
+
+    
+# Reads in saved classification model
+load_clf = pickle.load(open('youth_pipe.pkl', 'wb'))
+
+# Apply model to make predictions
+prediction = load_clf.predict(df)
+prediction_proba = load_clf.predict_proba(df)
+
+
+st.subheader('Prediction')
+homeless_more_than_1_year = np.array(['No','Yes'])
+st.write(homeless_more_than_1_year[prediction])
+
+st.subheader('Prediction Probability')
+st.write(prediction_proba)
