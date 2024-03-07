@@ -20,24 +20,29 @@ st.sidebar.markdown("""
 [Example CSV input file](https://github.com/dxk613/capstone_project/blob/main/datasets/youth_model.csv)
 """)
 
+# Target = hmlsmorethan1Yr 
+# Features = 'dv_neglect', 'dv_physical', 'dv_physical_rel', 'dv_sexual_rel', 'subsabuse', 'drugabuse', 'SPA'
+
 # Collects user input features into dataframe
 uploaded_file = st.sidebar.file_uploader("Upload your input CSV file", type=["csv"])
 if uploaded_file is not None:
     input_df = pd.read_csv(uploaded_file)
 else:
     def user_input_features():
-        island = st.sidebar.selectbox('Island',('Biscoe','Dream','Torgersen'))
-        sex = st.sidebar.selectbox('Sex',('male','female'))
-        bill_length_mm = st.sidebar.slider('Bill length (mm)', 32.1,59.6,43.9)
-        bill_depth_mm = st.sidebar.slider('Bill depth (mm)', 13.1,21.5,17.2)
-        flipper_length_mm = st.sidebar.slider('Flipper length (mm)', 172.0,231.0,201.0)
-        body_mass_g = st.sidebar.slider('Body mass (g)', 2700.0,6300.0,4207.0)
-        data = {'island': island,
-                'bill_length_mm': bill_length_mm,
-                'bill_depth_mm': bill_depth_mm,
-                'flipper_length_mm': flipper_length_mm,
-                'body_mass_g': body_mass_g,
-                'sex': sex}
+        neglect = st.sidebar.selectbox('Neglect',('Yes','No','Not Sure','Refuse to Answer'))
+        physical_abuse = st.sidebar.selectbox('Physical Abuse',('Yes','No', 'Not Sure', 'Refuse to Answer'))
+        dv_physical_rel = st.sidebar.slider('Physical Abuse By Parent', 0, 1, 6)
+        dv_sexual_rel = st.sidebar.slider('Sexual Abuse By Parent', 0, 1, 6)
+        subsabuse = st.sidebar.slider('Whether Did Substance Abuse', 0, 1, 6)
+        drugabuse = st.sidebar.slider('Whether Did Drug Abuse', 0, 1, 2)
+        SPA = st.sidebar.slider('Service Planning Area', 0, 1, 8)
+        data = {'dv_neglect': neglect,
+                'dv_physical_rel': dv_physical_rel,
+                'dv_sexual_rel': dv_sexual_rel,
+                'subsabuse': subsabuse,
+                'drugabuse': drugabuse,
+                'SPA': SPA,
+                'dv_physical': physical_abuse}
         features = pd.DataFrame(data, index=[0])
         return features
     input_df = user_input_features()
