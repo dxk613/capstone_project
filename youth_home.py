@@ -4,10 +4,10 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-#from sklearn.model_selection import train_test_split, GridSearchCV
-#from imblearn.pipeline import make_pipeline
-#from imblearn.over_sampling import RandomOverSampler
-#from sklearn.svm import SVC
+from sklearn.model_selection import train_test_split, GridSearchCV
+from imblearn.pipeline import make_pipeline
+from imblearn.over_sampling import RandomOverSampler
+from sklearn.svm import SVC
 
 
 st.write("""
@@ -67,18 +67,37 @@ else:
     st.write('Awaiting CSV file to be uploaded. Currently using example input parameters (shown below).')
     st.write(df)
 
-    
+# Load your dataset
+youth_model = pd.read_csv("datasets/youth_model.csv")
+
+# Define features (X) and target variable (y)
+features = ['dv_neglect', 'dv_physical_rel', 'dv_sexual_rel', 'subsabuse', 'drugabuse', 'SPA', 'dv_physical']
+target = 'hmlsmorethan1Yr'
+
+X = youth_model[features]
+y = youth_model[target]
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42, stratify=y)
+
+
+# Load the grid search object
+with open('youth_pipe.pkl', 'rb') as file:
+    gs = pickle.load(file)
+
 # Reads in saved classification model
-load_clf = pickle.load(open('youth_pipe.pkl', 'wb'))
+#load_clf = pickle.load(open('youth_pipe.pkl', 'rb'))
+
+# Fit the model to your data
+gs.fit(X_train, y_train) 
 
 # Apply model to make predictions
-prediction = load_clf.predict(df)
-prediction_proba = load_clf.predict_proba(df)
-
+prediction = gs.predict(df)
+#prediction_proba = gs.predict_proba(df)
 
 st.subheader('Prediction')
 homeless_more_than_1_year = np.array(['No','Yes'])
 st.write(homeless_more_than_1_year[prediction])
 
-st.subheader('Prediction Probability')
-st.write(prediction_proba)
+#st.subheader('Prediction Probability')
+#st.write(prediction_proba)
