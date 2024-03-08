@@ -42,12 +42,13 @@ else:
         drugabuse = st.sidebar.slider('Whether Did Drug Abuse', 0, 1, 2)
         SPA = st.sidebar.slider('Service Planning Area', 0, 1, 8)
         data = {'dv_neglect': neglect,
+                'dv_physical': physical_abuse,
                 'dv_physical_rel': dv_physical_rel,
                 'dv_sexual_rel': dv_sexual_rel,
                 'subsabuse': subsabuse,
                 'drugabuse': drugabuse,
-                'SPA': SPA,
-                'dv_physical': physical_abuse}
+                'SPA': SPA
+                }
         features = pd.DataFrame(data, index=[0])
         return features
     input_df = user_input_features()
@@ -57,6 +58,8 @@ else:
 youth_homeless = pd.read_csv('datasets/youth_model.csv')
 youth = youth_homeless.drop(columns=['hmlsmorethan1Yr'])
 df = pd.concat([input_df,youth],axis=0)
+df = df[:1] # Selects only the first row (the user input data)
+
 
 # Displays the user input features
 st.subheader('User Input features')
@@ -71,7 +74,7 @@ else:
 youth_model = pd.read_csv("datasets/youth_model.csv")
 
 # Define features (X) and target variable (y)
-features = ['dv_neglect', 'dv_physical_rel', 'dv_sexual_rel', 'subsabuse', 'drugabuse', 'SPA', 'dv_physical']
+features = ['dv_neglect', 'dv_physical', 'dv_physical_rel', 'dv_sexual_rel', 'subsabuse', 'drugabuse', 'SPA']
 target = 'hmlsmorethan1Yr'
 
 X = youth_model[features]
@@ -80,24 +83,21 @@ y = youth_model[target]
 # Split the dataset into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42, stratify=y)
 
-
 # Load the grid search object
 with open('youth_pipe.pkl', 'rb') as file:
     gs = pickle.load(file)
 
-# Reads in saved classification model
-#load_clf = pickle.load(open('youth_pipe.pkl', 'rb'))
-
+gs = SVC(probability=True)
 # Fit the model to your data
 gs.fit(X_train, y_train) 
 
 # Apply model to make predictions
 prediction = gs.predict(df)
-#prediction_proba = gs.predict_proba(df)
+prediction_proba = gs.predict_proba(df)
 
 st.subheader('Prediction')
 homeless_more_than_1_year = np.array(['No','Yes'])
 st.write(homeless_more_than_1_year[prediction])
 
-#st.subheader('Prediction Probability')
-#st.write(prediction_proba)
+st.subheader('Prediction Probability')
+st.write(prediction_proba)
