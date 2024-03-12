@@ -29,18 +29,26 @@ This became my final dataset to train the classification models:
 To predict who is at risk of becoming homeless, I have used these five classification models: Logistic Regression, KNN Neighbors, Random Forest, Ada Boost, and SVC. Because my target variable - hmlsmorethan1Yr - has imbalanced data, I also utilized the RandomOverSampler, SMOTEN, ADASYN, and OverWeighing the minority class to help counter the imbalance. Overall, out of the five models, the SVC model with the RandomOverSampler method performed the best with roughly 58 percent, doing better than the null model's baseline of 50 percent accuracy. Despite hypertuning the parameters for my SVC model, my model was unable to perform better than 58 percent.
 
 
-| Model               | Balanced Accuracy | Recall  | Precision | F1 Score |Model          | Balanced Accuracy | Recall  | Precision | F1 Score |
-|---------------------|-------------------|---------|-----------|----------|---------------|-------------------|---------|-----------|----------|
-| Logistic Regression |                   |         |           |          |KNN            |                   |         |           |          |
-| logr                | 0.504139          | 0.011236| 0.666667  | 0.022099 |knn            | 0.522754          | 0.089888| 0.516129  | 0.153110 |
-| RandomOverSampler   | 0.533592          | 0.460674| 0.381395  | 0.417303 |RandomOverSampler   | 0.562180          | 0.331461| 0.457364  | 0.384365 |
-| SMOTEN               | 0.532262          | 0.455056| 0.380282  | 0.414322 |SMOTEN              | 0.544728          | 0.320225| 0.422222  | 0.364217 |
-| ADASYN              | 0.526644          | 0.443820| 0.374408  | 0.406170 |ADASYN              | 0.549315          | 0.314607| 0.434109  | 0.364821 |
-| WeightedLogr        | 0.545409          | 0.516854| 0.389831  | 0.444444 |Weightedknn         | 0.539010          | 0.146067| 0.530612  | 0.229075 |
+| Model               | Balanced Accuracy | Recall  | Precision | F1 Score |
+|---------------------|-------------------|---------|-----------|----------|
+| Logistic Regression |                   |         |           |          |
+| logr                | 0.504139          | 0.011236| 0.666667  | 0.022099 |
+| RandomOverSampler   | 0.533592          | 0.460674| 0.381395  | 0.417303 |
+| SMOTEN               | 0.532262          | 0.455056| 0.380282  | 0.414322| 
+| ADASYN              | 0.526644          | 0.443820| 0.374408  | 0.406170 |
+| WeightedLogr        | 0.545409          | 0.516854| 0.389831  | 0.444444 |
+
+Model          | Balanced Accuracy | Recall  | Precision | F1 Score |
+---------------|-------------------|---------|-----------|----------|
+|KNN          | 0.522754          | 0.089888| 0.516129  | 0.153110 |
+|RandomOverSampler | 0.562180     | 0.331461| 0.457364  | 0.384365 |
+|SMOTEN           | 0.544728    | 0.320225| 0.422222  | 0.364217 |
+|ADASYN            | 0.549315    | 0.314607| 0.434109  | 0.364821 |
+|Weightedknn       | 0.539010  | 0.146067| 0.530612  | 0.229075 |
 
 | Model              | balanced_accuracy | recall  | precision | f1_score |
 |--------------------|-------------------|---------|-----------|----------|
-| svc                | 0.504139          | 0.011236| 0.666667  | 0.022099 |
+| SVC                | 0.504139          | 0.011236| 0.666667  | 0.022099 |
 | RandomOverSampler  | 0.578685          | 0.544944| 0.425439  | 0.477833 |
 | SMOTEN             | 0.556496          | 0.544944| 0.399177  | 0.460808 |
 | ADASYN             | 0.536932          | 0.668539| 0.371875  | 0.477912 |
@@ -48,7 +56,7 @@ To predict who is at risk of becoming homeless, I have used these five classific
 
 | Model              | balanced_accuracy | recall  | precision | f1_score |
 |--------------------|-------------------|---------|-----------|----------|
-| rf                 | 0.533974          | 0.168539| 0.468750  | 0.247934 |
+| RF                 | 0.533974          | 0.168539| 0.468750  | 0.247934 |
 | RandomOverSampler  | 0.554302          | 0.460674| 0.407960  | 0.432718 |
 | SMOTEN             | 0.542916          | 0.443820| 0.395000  | 0.417989 |
 | ADASYN             | 0.534456          | 0.539326| 0.376471  | 0.443418 |
@@ -56,7 +64,7 @@ To predict who is at risk of becoming homeless, I have used these five classific
 
 | Model              | balanced_accuracy | recall  | precision | f1_score |
 |--------------------|-------------------|---------|-----------|----------|
-| ada                | 0.504720          | 0.044944| 0.400000  | 0.080808 |
+| ADA                | 0.504720          | 0.044944| 0.400000  | 0.080808 |
 | RandomOverSampler  | 0.535520          | 0.443820| 0.385366  | 0.412533 |
 | SMOTEN             | 0.519696          | 0.426966| 0.367150  | 0.394805 |
 | ADASYN             | 0.516272          | 0.500000| 0.360324  | 0.418824 |
