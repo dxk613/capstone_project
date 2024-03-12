@@ -1,17 +1,30 @@
 # Problem Statement
 _________
 
-California leads the country in [youth homelessness](https://www.theguardian.com/us-news/2023/dec/19/california-us-street-homelessness-youth-unsheltered-annual-report). To help address this growing issue in Los Angeles, this project's aim is to use classification models leveraging 2017-2019 data on youth homelessness surveys from [Los Angeles Continuum of Care Homeless Counts](https://economicrt.org/publication/los-angeles-county-homeless-count-data-library/) to predict who is at risk of becoming homeless based on social and demographic conditions. This project will designate "Whether homeless more than 1 year this time" as the target variable. The goal of this project is to help LA city government gain a better understanding of who is most at risk by utilizing multiple classification models. To enhance the models' accuracies, I will incorporate domain expertise and external research to conduct feature selection, identifying relevant factors influencing the likelihood of becoming homeless.
+California leads the country in [youth homelessness](https://www.theguardian.com/us-news/2023/dec/19/california-us-street-homelessness-youth-unsheltered-annual-report). To help address this growing issue in Los Angeles, this project's aim is to use classification models leveraging public data on youth homelessness surveys to predict who is at risk of becoming homeless based on family conditions and geographic consideration. The goal of this project is to help LA city government gain a better understanding of who is most at risk by utilizing binary classification models. To enhance the models' accuracies, I will incorporate domain expertise and external research to conduct feature selection, identifying relevant factors influencing the likelihood of becoming homeless.
 
-After running tests for each model, I will select the best performing model to incorporate in my streamlit app which will tell how likely a young person will become homeless based on social and demographic inputs. 
 
 # Methodology
 _________
 
-## Clean Data
+## Data Collection and Cleaning
 
-* Ensure all three datasets match with one another
-* Concatenate all three datasets once all three match with one another
+For data collection, I gathered three datasets on individual homeless youth surveys during 2017-2019 from the [Los Angeles Continuum of Care Homeless Counts](https://economicrt.org/publication/los-angeles-county-homeless-count-data-library/). Once I gathered all three datasets, the main challenge was reformatting the questions in an uniform fashion to concatenate the three datasets together, which involved consulting respective data dictionaries. Once I was able to successfully reformat the datasets, I examined 119 different columns and used this [2015 report](https://oclawin.org/wp-content/uploads/2015/08/FactSheet_GeneralCauses_and_challenges_2015.pdf), which goes over common reasons why young individuals may end up homeless such as domestic issues with their families, to determine my features.
+
+This is what ended up as my final dataset that I would use to train my classification models:
+
+- Data Dictionary
+
+| Variable        | Data Type | Value Count  | Description                                                                               |
+| -----------     | --------  | ------------ | ------------------------                                                                  |
+| hmlsmorethan1Yr | int64     | 2577         | 0 - No, 1 - Yes: homeless more than 1 year this time                                      |
+| dv_neglect      | int64     | 2577         | 0 - No, 1 - Yes, 2 - R, 3 - S, 4 - D, 5 - C, 6 - N: faced neglect                         | 
+| dv_physical     | int64     | 2577         | 0 - No, 1 - Yes, 2 - R, 3 - S, 4 - D, 5 - C, 6 - N: faced physical abuse                  | 
+| dv_physical_rel | int64     | 2577         | 0 - No, 1 - Yes, 2 - R, 3 - S, 4 - D, 5 - C, 6 - N: faced physical abuse by parents       | 
+| dv_sexual_rel   | int64     | 2577         | 0 - No, 1 - Yes, 2 - R, 3 - S, 4 - D, 5 - C, 6 - N: faced sexual abuse by parents         |
+| subsabuse       | int64     | 2577         | 0 - No, 1 - Yes, 2 - M, 3 - Y, 4 - A: substance abuse problem of long duration (18+ only) | 
+| drugabuse       | int64     | 2577         | 0 - No, 1 - Yes, 2 - M: Drug Abuse                          | 
+| SPA             | int64     | 2577         | 1 - 8: [Service Planning Area](http://publichealth.lacounty.gov/chs/SPAMain/ServicePlanningAreas.htm)         |
 
 ## EDA 
 
