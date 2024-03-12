@@ -74,4 +74,4 @@ Model          | Balanced Accuracy | Recall  | Precision | F1 Score |
 
 ## Next Steps
 
-For the following next steps, I plan to examine and select additional columns that were not utilized in the modeling process, collect more data, and observe any potential changes in modeling performances.
+For the following next steps, I plan to examine and select additional columns that were not utilized in the modeling process, collect more data, and observe any potential changes in modeling performances. I also plan to seek ways to make the streamlit app for predicting homelessness more user-friendly.
