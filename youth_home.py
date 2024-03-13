@@ -38,7 +38,7 @@ else:
         physical_abuse = st.sidebar.slider('Physical Abuse', 0, 1, 6)
         dv_physical_rel = st.sidebar.slider('Physical Abuse By Parent', 0, 1, 6)
         dv_sexual_rel = st.sidebar.slider('Sexual Abuse By Parent', 0, 1, 6)
-        subsabuse = st.sidebar.slider('Whether Did Substance Abuse', 0, 1, 6)
+        subsabuse = st.sidebar.slider('Whether Did Substance Abuse', 0, 1, 4)
         drugabuse = st.sidebar.slider('Whether Did Drug Abuse', 0, 1, 2)
         SPA = st.sidebar.slider('Service Planning Area', 0, 1, 8)
         data = {'dv_neglect': neglect,
